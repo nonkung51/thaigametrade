@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+  {% if form.errors %}
+  <p>username หรือ password คุณไม่ถูกต้อง</p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+  <p>คุณลงชื่อเข้าใช้งานแล้ว</p>
+  {% else %}
+  <form method="post" action="{% url 'accounts:login' %}">
+  {% csrf_token %}
+  {{form.username.label}} : {{form.username}}<br>
+  {{form.password.label}} : {{form.password}}<br>
+  <input type="submit" value="login" class="btn btn-default">
+  <input type="hidden" name="next" value="{{ next }}">
+  </form>
+</div>
+
+{% endif %}
+
+{% endblock %}

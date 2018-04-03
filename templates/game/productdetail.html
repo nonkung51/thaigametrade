@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="jumbotron">
+    <a href="{% url 'game' pk=product_detail.game.pk %}">
+    <h1>เกม : {{product_detail.game}}</h1></a>
+    <h2>ราคา : {{product_detail.price}}</h2>
+    <h2>ผู้ขาย : {{product_detail.seller}}</h2>
+    {% if user == product_detail.seller.user %}
+      <a class="btn btn-warning" role="button" href="{% url 'game:product_edit' pk=product_detail.pk %}">แก้ไข</a>
+      <a class="btn btn-danger" role="button" href="{% url 'game:product_delete' pk=product_detail.pk %}">ลบ</a>
+    {% endif %}
+  </div>
+{% endblock %}

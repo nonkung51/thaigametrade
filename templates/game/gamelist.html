@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="form-inline" method="GET">
+  <input class="form-control" type="text" name="q" placeholder="ค้นหาชื่อเกม">
+  <input class="btn btn-primary" type="submit" value="ค้นหา">
+</form>
+<hr>
+<ul class="list-group">
+{% if object_list %}
+  {% for game in object_list %}
+    <li class="list-group-item">
+      <h2>{{game}} <a class="btn btn-light" href="{% url 'game' pk=game.pk %}">ดูเพิ่มเติม</a></h2>
+      <ul class="list-group">
+      {% for product in game.products.all  %}
+          <li class="list-group-item">
+            {% if product.seller.facebook %}
+              {% if product.seller.facebook_link %}
+                <h4>ติดต่อ Facebook : <a href={{product.seller.facebook_link}}>{{product.seller.facebook}}</a> <a class="btn btn-primary" href="{% url 'accounts:profile' pk=product.seller.pk %}">โปรไฟล์ผู้ขาย</a></h4>
+              {% else %}
+                <h4>ติดต่อ Facebook : {{product.seller.facebook}}<a class="btn btn-primary" href="{% url 'accounts:profile' pk=product.seller.pk %}">โปรไฟล์ผู้ขาย</a></h4>
+              {% endif %}
+            {% else %}
+              <h4>ติดต่อผู้ขาย : {{product.seller}}</h4> **ผู้ใช้ยังไม่ได้ตั้งค่า Facebook โปรดระวัง**
+            {% endif %}
+            <h4>ราคา : {{product.price}}</h4>
+          </li>
+      {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+{% else %}
+    <h1>ไม่พบการค้นหา</h1>
+{% endif %}
+
+
+</ul>
+{% endblock %}

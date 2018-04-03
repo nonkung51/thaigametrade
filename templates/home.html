@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+  <h1>หน้าหลัก</h1>
+  <a class="btn btn-primary" href="{% url 'accounts:register' %}">สมัครสมาชิก</a>
+  <a class="btn btn-primary"  href="{% url 'gamelist' %}">หน้าร้านค้า</a>
+  {% if user.is_authenticated %}
+      <a class="btn btn-primary"  href="{% url 'accounts:profile_edit' pk=user.profile.pk %}">แก้ไขข้อมูลสมาชิก</a>
+      <a class="btn btn-primary"  href="{% url 'accounts:profile' pk=user.profile.pk %}">หน้าสมาชิก</a>
+  {% endif %}
+  <p></p>
+  {% if news %}
+    <h3>กระดานข่าว</h3>
+    <ul class="list-group">
+    {% for new in news %}
+      <li class="list-group-item">
+        <p>{{new.text}}</p>
+        {{new.time}}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+<div class="row">
+  <div class="w-50 p-3">
+  {% if games %}
+    <h3>เกมแนะนำ</h3>
+    <ul class="list-group">
+    {% for game in games %}
+      <li class="list-group-item">
+        <a href="{% url 'game' pk=game.pk %}">{{ game.name }}</a>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </div>
+  <div class="w-50 p-3">
+    {% if profiles %}
+      <h3>ผู้ใช้</h3>
+      <ul class="list-group">
+      {% for profile in profiles %}
+        <li class="list-group-item">
+          <a href="{% url 'accounts:profile' pk=profile.pk %}">{{ profile.user }}</a>
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{game.name}}</h1>
+
+{% if game.products.all %}
+  <h2>สินค้าที่มี : </h2>
+  <ul class="list-group">
+  {% for product in game.products.all %}
+    <li class="list-group-item">
+      <h2>ราคา : {{product.price}}</h2>
+      <h2>ผู้ขาย : <a href="{% url 'accounts:profile' pk=product.seller.pk %}">{{product.seller}}</h2></a>
+    </li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <h2>ยังไม่มีคนลงขายเกม</h2>
+{% endif %}
+
+
+{% endblock %}

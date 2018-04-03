@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>คุณกำลังจะลบ {{product.game}} ?</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" class="btn btn-danger" value="ลบ">
+  <a href="{% url 'game:product' pk=product.pk %}">ยกเลิก</a>
+</form>
+{% endblock %}

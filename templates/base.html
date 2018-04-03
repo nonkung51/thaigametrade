@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Thaigametrade</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand" href="{% url 'home' %}"><strong>Thaigametrade</strong></a>
+        <form class="form-inline">
+        {% if user.is_authenticated %}
+          <a href="{% url 'accounts:profile' pk=user.profile.pk %}">
+            <button class="btn btn-sm btn-outline-primary mr-sm-2" type="button">หน้าผู้ใช้</button>
+          </a>
+          <a href="{% url 'game:create' %}">
+            <button class="btn btn-sm btn-outline-primary mr-sm-2" type="button">ขายเกม</button>
+          </a>
+          <a href="{% url 'accounts:logout' %}">
+            <button class="btn btn-sm btn-outline-primary mr-sm-2" type="button">ลงชื่อออก</button>
+          </a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}">
+            <button class="btn btn-sm btn-outline-primary mr-sm-2" type="button">ลงชื่อเข้าใช้</button>
+          </a>
+        {% endif %}
+        </form>
+    </nav>
+    <p></p>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

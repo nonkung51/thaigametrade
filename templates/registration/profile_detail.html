@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>ชื่อผู้ใช้ : {{profile.user}}</h1>
+  {% if profile.facebook %}
+    <a href="{{profile.facebook_link}}"><h2>เฟสบุ๊ค : {{profile.facebook}}</h2></a>
+  {% endif %}
+  <h3>เกมที่ลงขาย : </h3>
+  {% if profile.products.all %}
+  <ul class="list-group">
+    {% for product in profile.products.all %}
+      <li class="list-group-item">
+        <a href="{% url 'game:product' pk=product.pk %}"><h3>เกม : {{product.game}}</h3></a>
+        <h3>ราคา : {{product.price}}</h3>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <h3>ผู้ใช้ยังไม่ได้ลงขายเกม</h3>
+  {% endif %}
+
+
+  {% if user == profile.user %}
+    <a href="{% url 'accounts:profile_edit' pk=profile.pk %}">
+    <button type="button" class="btn btn-warning">แก้ไขข้อมูลสมาชิก</button></a>
+  {% endif %}
+</div>
+{% endblock %}
