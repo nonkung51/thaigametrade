@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^product/', include('game.urls')),
-    url(r'^game/$', GameRequestView.as_view(), name='gamerequest'),
+    url(r'^gamerequest/$', GameRequestView.as_view(), name='gamerequest'),
     url(r'^game/$', GameListView.as_view(), name='gamelist'),
     url(r'^game/(?P<pk>\d+)/$', ProductListView.as_view(), name='game'),
     url(r'^accounts/', include('accounts.urls')),
